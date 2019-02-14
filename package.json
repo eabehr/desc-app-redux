@@ -1,0 +1,62 @@
+{
+    "name": "desc-simplify-app",
+    "version": "0.1.0",
+    "description": "A POC frontend (react) app to integrate the desc-simplify-api",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack-dev-server --open",
+        "clean": "rimraf dist/",
+        "prebuild": "yarn clean",
+        "build": "webpack --config webpack.prod.config.babel.js",
+        "lint": "eslint webpack.config.babel.js tools/**/*.js src/**/*.js",
+        "test": "jest"
+    },
+    "keywords": [
+        "React"
+    ],
+    "author": "Jason Jones",
+    "license": "MIT",
+    "jest": {
+        "moduleNameMapper": {
+            "\\.css$": "<rootDir>/src/components/__mocks__/styleMock.js"
+        }
+    },
+    "dependencies": {
+        "express": "^4.16.3",
+        "materialize-css": "^1.0.0-rc.2",
+        "prop-types": "^15.6.2",
+        "react": "^16.5.0",
+        "react-dom": "^16.5.0",
+        "react-redux": "^5.0.7",
+        "react-router-dom": "^4.3.1",
+        "redux": "^4.0.0",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.3.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.1.0",
+        "@babel/core": "^7.1.0",
+        "@babel/node": "^7.0.0",
+        "@babel/plugin-proposal-class-properties": "^7.1.0",
+        "@babel/preset-env": "^7.1.0",
+        "@babel/preset-react": "^7.0.0",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-eslint": "^9.0.0",
+        "babel-jest": "^23.6.0",
+        "babel-loader": "^8.0.0",
+        "css-loader": "^1.0.0",
+        "eslint": "^5.6.0",
+        "eslint-plugin-react": "^7.11.1",
+        "html-webpack-plugin": "^3.2.0",
+        "jest": "^23.6.0",
+        "prettier": "^1.14.3",
+        "react-test-renderer": "^16.5.2",
+        "rimraf": "^2.6.2",
+        "style-loader": "^0.23.0",
+        "uglifyjs-webpack-plugin": "^2.0.1",
+        "webpack": "^4.19.1",
+        "webpack-cli": "^3.1.0",
+        "webpack-dev-server": "^3.1.8",
+        "webpack-merge": "^4.1.4"
+    }
+}

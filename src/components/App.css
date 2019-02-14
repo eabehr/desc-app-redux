@@ -1,0 +1,7 @@
+header {
+    min-height: 500px;
+}
+
+nav .active {
+    background-color: #00796b;
+}
