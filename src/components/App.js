@@ -17,7 +17,7 @@ class App extends React.Component {
                     <Route exact path="/" component={Dashboard} />
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/signup" component={SignupPage} />
-                    <Route exact path="/requests" component={RequestTabs} />
+                    <Route exact path="/inbox" component={RequestTabs} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </Layout>

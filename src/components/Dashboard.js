@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
                             </Link>
                         </div>
                         <div className="col s1 m4">
-                            <Link to="/requests" className="waves-effect waves-light btn-large">
+                            <Link to="/inbox" className="waves-effect waves-light btn-large">
                                 View Requests
                             </Link>
                         </div>
