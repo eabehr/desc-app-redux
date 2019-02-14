@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import M from 'materialize';
 
-import ItemList from './ItemList';
-import * as actions from '../actions/actions';
+import RequestedItemsList from './RequestedItemsList';
+import * as actions from '../../actions/actions';
 
 class Tabs extends React.Component {
     componentDidMount() {
@@ -33,16 +33,16 @@ class Tabs extends React.Component {
                     </ul>
                 </div>
                 <div id="active" className="col s12">
-                    <ItemList title="Active Requests" type="active" />
+                    <RequestedItemsList title="Active Requests" type="active" />
                 </div>
                 <div id="approved" className="col s12">
-                    <ItemList title="Approved Requests" type="approved" />
+                    <RequestedItemsList title="Approved Requests" type="approved" />
                 </div>
                 <div id="wishlist" className="col s12">
-                    <ItemList title="Wishlist Requests" type="wishlist" />
+                    <RequestedItemsList title="Wishlist Requests" type="wishlist" />
                 </div>
                 <div id="archive" className="col s12">
-                    <ItemList title="Archive Requests" type="archive" />
+                    <RequestedItemsList title="Archive Requests" type="archive" />
                 </div>
             </div>
         );

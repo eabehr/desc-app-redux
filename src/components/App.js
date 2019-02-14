@@ -5,7 +5,7 @@ import Layout from '../containers/Layout';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import Dashboard from './Dashboard';
-import RequestTabs from './RequestTabs';
+import RequestTabs from './RequestInbox/RequestTabs';
 import NotFoundPage from './NotFoundPage';
 import './App.css';
 

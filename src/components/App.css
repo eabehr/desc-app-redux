@@ -9,3 +9,7 @@ nav .active {
 .desc-logo {
     margin-right: 2rem;
 }
+
+.collapsible-body {
+    padding: 1rem;
+}
