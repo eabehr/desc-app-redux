@@ -5,3 +5,7 @@ header {
 nav .active {
     background-color: #00796b;
 }
+
+.desc-logo {
+    margin-right: 2rem;
+}
