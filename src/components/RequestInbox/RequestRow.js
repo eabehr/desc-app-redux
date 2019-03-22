@@ -1,10 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import * as actions from '../../actions/actions';
 
 class RequestRow extends React.Component {
 
     constructor(props) {
         super(props);
+        this.updateItemStatus = this.updateItemStatus.bind(this);
     }
 
     render() {
@@ -21,17 +24,17 @@ class RequestRow extends React.Component {
                 </div>
                 <div className="collapsible-body">
                     <div className="actions">
-                        <a className="btn-small btn-flat">
+                        <a className="btn-small btn-flat" onClick={() => this.updateItemStatus("approved")}>
                             <i className="material-icons left">check_box</i>
                             Approve
                         </a>
-                        <a className="btn-small btn-flat">
+                        <a className="btn-small btn-flat" onClick={() => this.updateItemStatus("denied")}>
                             <i className="material-icons left">clear</i>
                             Reject
                         </a>
-                        <a className="btn-small btn-flat">
+                        <a className="btn-small btn-flat" onClick={() => this.updateItemStatus("wishlist")}>
                             <i className="material-icons left">access_time</i>
-                            Waitlist
+                            Wishlist
                         </a>
                     </div>
 
@@ -46,7 +49,38 @@ class RequestRow extends React.Component {
         var date = new Date(createdAt)
         return date.toDateString();
     }
+
+    updateItemStatus(status) {
+        var id = this.props._id;
+        var url = 'http://localhost:3000/api/items/' + id;
+
+        let itemData = {
+            itemId : id,
+            requestBody : {
+                "status" : status
+            }
+        }
+        this.props.updateItemStatus(itemData);
+    }
 }
 
-export default connect()(RequestRow);
+RequestRow.propTypes = {
+    updateItemStatus: PropTypes.func
+};
 
+const mapStateToProps = state => {
+    return {
+        isAuth: state.isAuth
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateItemStatus: itemStatusData => dispatch(actions.updateItemStatus(itemStatusData))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RequestRow);

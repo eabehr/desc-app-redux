@@ -100,3 +100,32 @@ export const fetchItems = () => {
             .catch(err => console.log(err));
     };
 };
+
+export const updateItemStatus = itemStatusData => {
+    return dispatch => {
+        dispatch({ type: 'UPDATE_ITEM_REQUEST_STATUS'});
+        fetch(`${baseUrl}/api/items/${itemStatusData.itemId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(itemStatusData.requestBody)
+        })
+        .then(function(response) {
+            console.log(response);
+            if (response.ok && response.status === 200) {
+                return response.json();
+            } else {
+                return Promise.reject({ message: 'err' });
+            }
+        })
+        .then(function(data) {
+            if (data.success) {
+                M.toast({html: 'Item status updated'})
+            } else {
+            }
+            console.log(data);
+        }).catch(function(err) {
+            console.log(err);
+        });
+
+    }
+};

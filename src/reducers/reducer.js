@@ -67,6 +67,8 @@ export const reducer = (
                 error: '',
                 items: action.data
             };
+        // Item actions
+        case 'UPDATE_ITEM_REQUEST_STATUS':
         default:
             return state;
     }
