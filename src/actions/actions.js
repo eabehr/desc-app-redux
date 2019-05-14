@@ -129,3 +129,31 @@ export const updateItemStatus = itemStatusData => {
 
     }
 };
+
+export const postNoteToItem = noteData => {
+    return dispatch => {
+        dispatch({ type: 'POST_NOTE_TO_ITEM'});
+        fetch(`${baseUrl}/api/items/${noteData.itemId}/notes`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(noteData.requestBody)
+        })
+        .then(function(response) {
+            console.log(response);
+            if (response.ok && response.status === 200) {
+                return response.json();
+            } else {
+                return Promise.reject({ message: 'err' });
+            }
+        })
+        .then(function(data) {
+            if (data.success) {
+                M.toast({html: 'Note posted'})
+            } else {
+            }
+            console.log(data);
+        }).catch(function(err) {
+            console.log(err);
+        });
+    }
+};

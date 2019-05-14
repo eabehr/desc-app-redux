@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/actions';
+import RequestNotes from './RequestNotes';
 
 class RequestRow extends React.Component {
 
@@ -37,8 +38,11 @@ class RequestRow extends React.Component {
                             Wishlist
                         </a>
                     </div>
+                    <div>
+                        <RequestNotes item={this.props}/>
+                    </div>
 
-                    <input placeholder="Add a note" id="" type="text"/>
+                    
                 </div>
             </li>
         
@@ -52,7 +56,6 @@ class RequestRow extends React.Component {
 
     updateItemStatus(status) {
         var id = this.props._id;
-        var url = 'http://localhost:3000/api/items/' + id;
 
         let itemData = {
             itemId : id,

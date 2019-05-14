@@ -69,6 +69,7 @@ export const reducer = (
             };
         // Item actions
         case 'UPDATE_ITEM_REQUEST_STATUS':
+        case 'POST_NOTE_TO_ITEM':
         default:
             return state;
     }
