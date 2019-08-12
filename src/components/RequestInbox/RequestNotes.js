@@ -6,25 +6,30 @@ import * as actions from '../../actions/actions';
 class RequestNotes extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {currentNote: ""};
+        this.state = {
+            item: this.props.item,
+            currentNote: ''
+        };
 
         this.handleCurrentNoteChange = this.handleCurrentNoteChange.bind(this);
         this.handleSubmitNote = this.handleSubmitNote.bind(this);
     }
 
     getNotes = () => {
-        const notes = this.props.item.notes.map((note, i) =>
+        const notes = this.state.item.notes.map((note, i) => (
             <li key={i}>
-            <b>{note.submittedBy.name.first} {note.submittedBy.name.last}:   </b>
-            {note.body}
+                <b>
+                    {note.submittedBy.name.first} {note.submittedBy.name.last}:{' '}
+                </b>
+                {note.body}
             </li>
-        );
-  
+        ));
+
         return notes;
-    }
+    };
 
     handleCurrentNoteChange(event) {
-        this.setState({currentNote: event.target.value});
+        this.setState({ currentNote: event.target.value });
     }
 
     handleSubmitNote(event) {
@@ -32,31 +37,67 @@ class RequestNotes extends React.Component {
         var id = this.props.item._id;
 
         var noteData = {
-            itemId : id,
-            requestBody : {
+            itemId: id,
+            requestBody: {
                 // TODO get current user id
-                "submittedBy" : this.props.contextUser || "5bc50dabf5aa6ae120b49005",
-                "body" : this.state.currentNote
+                submittedBy: this.props.contextUser || '5bc50dabf5aa6ae120b49005',
+                body: this.state.currentNote
             }
-        }
-        this.props.postNoteToItem(noteData);
-        this.setState({currentNote: ""});
-        location.reload();
+        };
+        const baseUrl = 'http://localhost:3000';
+        fetch(`${baseUrl}/api/items/${noteData.itemId}/notes`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(noteData.requestBody)
+        })
+            .then(function(response) {
+                console.log(response);
+                if (response.ok && response.status === 200) {
+                    return response.json();
+                } else {
+                    return Promise.reject({ message: 'err' });
+                }
+            })
+            .then(function(data) {
+                if (data.success) {
+                    M.toast({ html: 'Note posted' });
+                } else {
+                    M.toast({ html: 'Error sending note' });
+                }
+                console.log(data);
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
 
+        // Once note is posted, reset text input
+        this.setState({ currentNote: '' });
+        // how to add to list of notes upon posting??
+        this.state.item.notes.append(noteData);
+        // location.reload();
     }
 
     render() {
         return (
             <div>
                 <h6>Notes</h6>
-                <ul>
-                    {this.getNotes()}
-                </ul>
-                <input placeholder="Add a note" id="" type="text" value={this.state.currentNote} onChange={this.handleCurrentNoteChange}/>
+                <ul>{this.getNotes()}</ul>
+                <input
+                    placeholder="Add a note"
+                    id=""
+                    type="text"
+                    value={this.state.currentNote}
+                    onChange={this.handleCurrentNoteChange}
+                />
                 {/* <input type="submit" value="Submit note" /> */}
-                <button className="btn waves-effect waves-light" type="submit" onClick={this.handleSubmitNote}>Post Note</button>
+                <button
+                    className="btn waves-effect waves-light"
+                    type="submit"
+                    onClick={this.handleSubmitNote}
+                >
+                    Post Note
+                </button>
             </div>
-
         );
     }
 }
@@ -69,7 +110,7 @@ RequestNotes.propTypes = {
 const mapStateToProps = state => {
     return {
         isAuth: state.isAuth,
-        contextUser: state.contextUser,
+        contextUser: state.contextUser
     };
 };
 
